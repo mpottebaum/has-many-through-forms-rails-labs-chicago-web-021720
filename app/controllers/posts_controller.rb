@@ -9,11 +9,22 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @categories = Category.all
+    2.times do
+      @post.categories.build
+    end
   end
 
   def create
     post = Post.create(post_params)
     redirect_to post
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comment.build_user
+    @users = User.all
   end
 
   private
